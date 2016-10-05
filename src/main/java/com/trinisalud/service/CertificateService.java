@@ -6,5 +6,7 @@ import com.trinisalud.model.certificate.upload.UploadCertificateResponse;
 public interface CertificateService {
 	
 	UploadCertificateResponse uploadCertificate(UploadCertificateRequest request);
+	
+	byte[] getCertificateBytes(String certificateId);
 
 }

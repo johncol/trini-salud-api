@@ -13,4 +13,9 @@ public class CertificateServiceImpl implements CertificateService {
 		return new UploadCertificateResponse(true, "Well done", "afdsfsd", "Trigliceridos", "1019034461");
 	}
 
+	@Override
+	public byte[] getCertificateBytes(String certificateId) {
+		return new byte[1];
+	}
+
 }
