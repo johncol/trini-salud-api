@@ -1,4 +1,4 @@
-package com.trinisalud.web.authentication;
+package com.trinisalud.model.authentication;
 
 public class AuthenticationResponse {
 

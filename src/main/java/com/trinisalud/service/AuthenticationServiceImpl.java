@@ -2,8 +2,8 @@ package com.trinisalud.service;
 
 import org.springframework.stereotype.Component;
 
-import com.trinisalud.web.authentication.AuthenticationRequest;
-import com.trinisalud.web.authentication.AuthenticationResponse;
+import com.trinisalud.model.authentication.AuthenticationRequest;
+import com.trinisalud.model.authentication.AuthenticationResponse;
 
 @Component("authenticationService")
 public class AuthenticationServiceImpl implements AuthenticationService {

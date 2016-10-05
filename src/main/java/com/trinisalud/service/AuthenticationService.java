@@ -1,7 +1,7 @@
 package com.trinisalud.service;
 
-import com.trinisalud.web.authentication.AuthenticationRequest;
-import com.trinisalud.web.authentication.AuthenticationResponse;
+import com.trinisalud.model.authentication.AuthenticationRequest;
+import com.trinisalud.model.authentication.AuthenticationResponse;
 
 public interface AuthenticationService {
 	
