@@ -1,4 +1,4 @@
-package com.trinisalud.web.authentication;
+package com.trinisalud.web;
 
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -21,8 +21,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import com.trinisalud.model.certificate.search.SearchCertificateResponse;
 import com.trinisalud.model.certificate.upload.UploadCertificateRequest;
 import com.trinisalud.model.certificate.upload.UploadCertificateResponse;
-import com.trinisalud.service.CertificateService;
-import com.trinisalud.web.ApiResponse;;
+import com.trinisalud.service.CertificateService;;
 
 @RestController
 @RequestMapping("/certificate")

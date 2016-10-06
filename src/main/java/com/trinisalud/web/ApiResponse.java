@@ -13,6 +13,10 @@ public class ApiResponse<T> {
 		this.data = data;
 	}
 
+	public ApiResponse(boolean success, String message) {
+		this(success, message, null);
+	}
+
 	public boolean isSuccess() {
 		return success;
 	}

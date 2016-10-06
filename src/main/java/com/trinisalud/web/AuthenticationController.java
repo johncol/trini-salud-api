@@ -1,4 +1,4 @@
-package com.trinisalud.web.authentication;
+package com.trinisalud.web;
 
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -11,8 +11,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 import com.trinisalud.model.authentication.AuthenticationRequest;
 import com.trinisalud.model.authentication.AuthenticationResponse;
-import com.trinisalud.service.AuthenticationService;
-import com.trinisalud.web.ApiResponse;;
+import com.trinisalud.service.AuthenticationService;;
 
 @RestController
 @RequestMapping("/authentication")
