@@ -2,19 +2,19 @@ package com.trinisalud.web;
 
 public class ApiResponse<T> {
 
-	private final int status;
+	private final boolean success;
 	private final String message;
 	private final T data;
 
-	public ApiResponse(int status, String message, T data) {
+	public ApiResponse(boolean success, String message, T data) {
 		super();
-		this.status = status;
+		this.success = success;
 		this.message = message;
 		this.data = data;
 	}
 
-	public int getStatus() {
-		return status;
+	public boolean isSuccess() {
+		return success;
 	}
 
 	public String getMessage() {

@@ -26,7 +26,7 @@ public class AuthenticationController {
 	@PostMapping("/on")
 	public ApiResponse<AuthenticationResponse> on(@RequestBody AuthenticationRequest request) {
 		LOGGER.info("request: " + request);
-		return new ApiResponse<AuthenticationResponse>(200, "Ok", authService.authenticate(request));
+		return new ApiResponse<AuthenticationResponse>(true, "Ok", authService.authenticate(request));
 	}
 
 }
