@@ -15,17 +15,17 @@ import com.trinisalud.model.certificate.upload.UploadCertificateResponse;
 public class CertificateServiceImpl implements CertificateService {
 
 	@Override
-	public UploadCertificateResponse uploadCertificate(UploadCertificateRequest request) {
+	public UploadCertificateResponse uploadCertificate(UploadCertificateRequest request) throws ServiceException {
 		return new UploadCertificateResponse(true, "Well done", "afdsfsd", "Trigliceridos", "1019034461");
 	}
 
 	@Override
-	public byte[] getCertificateBytes(String certificateId) {
+	public byte[] getCertificateBytes(String certificateId) throws ServiceException {
 		return new byte[1];
 	}
 
 	@Override
-	public SearchCertificateResponse search(String patientId) {
+	public SearchCertificateResponse search(String patientId) throws ServiceException {
 		Patient patient = new Patient(patientId, "john", "Hombre", 27, 41545465456L, "Calle 26", "3052315411", "john@mail.com", "sura", "dasdsadas");
 		List<Certificate> certificates = Arrays.asList(
 				new Certificate("1", "Trigliceridos"),

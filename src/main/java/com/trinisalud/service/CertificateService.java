@@ -6,10 +6,10 @@ import com.trinisalud.model.certificate.upload.UploadCertificateResponse;
 
 public interface CertificateService {
 	
-	UploadCertificateResponse uploadCertificate(UploadCertificateRequest request);
+	UploadCertificateResponse uploadCertificate(UploadCertificateRequest request) throws ServiceException;
 	
-	byte[] getCertificateBytes(String certificateId);
+	byte[] getCertificateBytes(String certificateId) throws ServiceException;
 	
-	SearchCertificateResponse search(String patientId);
+	SearchCertificateResponse search(String patientId) throws ServiceException;
 
 }
