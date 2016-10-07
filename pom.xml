@@ -34,6 +34,7 @@
 			<groupId>org.postgresql</groupId>
 			<artifactId>postgresql</artifactId>
 		</dependency>
+<!-- 			<scope>provided</scope> -->
 <!-- 		<dependency> -->
 <!-- 			<groupId>com.h2database</groupId> -->
 <!-- 			<artifactId>h2</artifactId> -->

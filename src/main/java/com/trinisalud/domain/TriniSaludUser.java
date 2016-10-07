@@ -4,12 +4,14 @@ import java.io.Serializable;
 
 import javax.persistence.*;
 
-@Entity(name = "user")
-public class User implements Serializable {
+//@Entity(name = "user")
+@Entity
+public class TriniSaludUser implements Serializable {
 
 	private static final long serialVersionUID = 8976574690835837318L;
 
 	@Id
+	@Column(nullable = false)
 	private String username;
 
 	@Column(nullable = false)
@@ -18,10 +20,10 @@ public class User implements Serializable {
 	@Column(nullable = false)
 	private String role;
 
-	protected User() {
+	protected TriniSaludUser() {
 	}
 
-	public User(String username, String password, String role) {
+	public TriniSaludUser(String username, String password, String role) {
 		super();
 		this.username = username;
 		this.password = password;
