@@ -3,12 +3,12 @@ package com.trinisalud.service;
 import java.util.List;
 
 import com.trinisalud.model.customer.CreateCustomerRequest;
-import com.trinisalud.model.customer.Customer;
+import com.trinisalud.model.customer.CustomerData;
 
 public interface CustomerService {
 	
-	void create(CreateCustomerRequest request);
+	void create(CreateCustomerRequest request) throws ServiceException;
 	
-	List<Customer> list();
+	List<CustomerData> list() throws ServiceException;
 
 }

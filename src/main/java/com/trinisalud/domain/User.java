@@ -4,9 +4,8 @@ import java.io.Serializable;
 
 import javax.persistence.*;
 
-//@Entity(name = "user")
-@Entity
-public class TriniSaludUser implements Serializable {
+@Entity(name = "ts_user")
+public class User implements Serializable {
 
 	private static final long serialVersionUID = 8976574690835837318L;
 
@@ -20,10 +19,10 @@ public class TriniSaludUser implements Serializable {
 	@Column(nullable = false)
 	private String role;
 
-	protected TriniSaludUser() {
+	protected User() {
 	}
 
-	public TriniSaludUser(String username, String password, String role) {
+	public User(String username, String password, String role) {
 		super();
 		this.username = username;
 		this.password = password;

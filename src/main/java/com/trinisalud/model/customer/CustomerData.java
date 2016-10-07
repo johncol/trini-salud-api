@@ -1,14 +1,14 @@
 package com.trinisalud.model.customer;
 
-public class Customer {
+public class CustomerData {
 
 	private String identification;
 	private String name;
 
-	public Customer() {
+	public CustomerData() {
 	}
 
-	public Customer(String identification, String name) {
+	public CustomerData(String identification, String name) {
 		super();
 		this.identification = identification;
 		this.name = name;
