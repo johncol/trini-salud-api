@@ -35,12 +35,17 @@ public class UploadCertificateServiceImpl implements UploadCertificateService {
 
 	@Override
 	public UploadCertificateResponse upload(UploadCertificateRequest request) throws ServiceException {
-		Patient patient = managePatient(request);
-		Certificate certificate = createAndGetCertificate(request, patient);
-		return new UploadCertificateResponse(certificate.getId(), certificate.getName());
+		try {
+			Patient patient = managePatient(request);
+			Certificate certificate = createAndGetCertificate(request, patient);
+			return new UploadCertificateResponse(certificate.getId(), certificate.getName());
+		} catch (PersistenceException e) {
+			LOGGER.severe("Error uploading certificate " + request + " - " + e);
+			throw new ServiceException("No fue posible guardar los datos del paciente y su certificado");
+		}
 	}
-
-	private Patient managePatient(UploadCertificateRequest request) {
+	
+	private Patient managePatient(UploadCertificateRequest request) throws PersistenceException, ServiceException {
 		Patient patient = patientRepository.findOne(request.getPatient().getIdentification());
 		if (patient != null) {
 			return patient;
@@ -48,14 +53,14 @@ public class UploadCertificateServiceImpl implements UploadCertificateService {
 		return createAndGetPatient(request);
 	}
 
-	private Patient createAndGetPatient(UploadCertificateRequest request) {
+	private Patient createAndGetPatient(UploadCertificateRequest request) throws PersistenceException, ServiceException {
 		Customer customer = loadCustomer(request);
 		Patient patient = mapToPatient(request.getPatient(), customer);
-		createPatient(patient);
+		patientRepository.save(patient);
 		return patient;
 	}
 
-	private Customer loadCustomer(UploadCertificateRequest request) {
+	private Customer loadCustomer(UploadCertificateRequest request) throws PersistenceException, ServiceException {
 		Customer customer = customerRepository.findOne(request.getCustomer());
 		if (customer == null) {
 			throw new ServiceException("El cliente no fue encontrado");
@@ -63,25 +68,11 @@ public class UploadCertificateServiceImpl implements UploadCertificateService {
 		return customer;
 	}
 
-	private void createPatient(Patient patient) {
-		try {
-			patientRepository.save(patient);
-		} catch (PersistenceException e) {
-			LOGGER.severe("Error saving patient " + patient + " - " + e);
-			throw new ServiceException("No fue posible guardar los datos del paciente");
-		}
-	}
-
-	private Certificate createAndGetCertificate(UploadCertificateRequest request, Patient patient) {
+	private Certificate createAndGetCertificate(UploadCertificateRequest request, Patient patient) throws PersistenceException {
 		String name = request.getCertificate().getName();
 		Date date = Date.valueOf(LocalDate.now());
 		Certificate certificate = new Certificate(name, date, null, patient);
-		try {
-			return certificateRepository.save(certificate);
-		} catch (PersistenceException e) {
-			LOGGER.severe("Error saving certificate " + certificate + " - " + e);
-			throw new ServiceException("No fue posible guardar los datos del certificado");
-		}
+		return certificateRepository.save(certificate);
 	}
 
 	private Patient mapToPatient(PatientData patient, Customer customer) {

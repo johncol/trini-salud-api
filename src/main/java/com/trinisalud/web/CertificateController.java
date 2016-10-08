@@ -42,7 +42,7 @@ public class CertificateController {
 		LOGGER.info("save request: " + request);
 		try {
 			UploadCertificateResponse response = uploadCertificateService.upload(request);
-			return new ApiResponse<UploadCertificateResponse>(true, "Ok", response);
+			return new ApiResponse<UploadCertificateResponse>(true, "ok", response);
 		} catch (ServiceException e) {
 			return new ApiResponse<UploadCertificateResponse>(false, e.getMessage());
 		}

@@ -29,7 +29,7 @@ public class CustomerController {
 		LOGGER.info("create request: " + request);
 		try {
 			customerService.create(request);
-			return new ApiResponse<Object>(true, "Ok");
+			return new ApiResponse<Object>(true, "ok");
 		} catch (ServiceException e) {
 			return new ApiResponse<Object>(false, e.getMessage());
 		}
@@ -40,7 +40,7 @@ public class CustomerController {
 		LOGGER.info("list request");
 		try {
 			List<CustomerData> customers = customerService.list();
-			return new ApiResponse<List<CustomerData>>(true, "Ok", customers);
+			return new ApiResponse<List<CustomerData>>(true, "ok", customers);
 		} catch (ServiceException e) {
 			return new ApiResponse<List<CustomerData>>(false, e.getMessage());
 		}

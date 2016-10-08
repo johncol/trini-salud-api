@@ -11,7 +11,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 import com.trinisalud.model.authentication.AuthenticationRequest;
 import com.trinisalud.model.authentication.AuthenticationResponse;
-import com.trinisalud.service.AuthenticationService;;
+import com.trinisalud.service.AuthenticationService;
+import com.trinisalud.service.ServiceException;;
 
 @RestController
 @RequestMapping("/authentication")
@@ -25,8 +26,12 @@ public class AuthenticationController {
 	@PostMapping("/on")
 	public ApiResponse<AuthenticationResponse> on(@RequestBody AuthenticationRequest request) {
 		LOGGER.info("request: " + request);
-		AuthenticationResponse response = authService.authenticate(request);
-		return new ApiResponse<AuthenticationResponse>(response.isSuccess(), "Request completed normally", response);
+		try {
+			AuthenticationResponse response = authService.authenticate(request);
+			return new ApiResponse<AuthenticationResponse>(response.isSuccess(), response.isSuccess() ? "ok" : "Credenciales inorrectas", response);
+		} catch (ServiceException e) {
+			return new ApiResponse<AuthenticationResponse>(false, e.getMessage());
+		}
 	}
 
 }

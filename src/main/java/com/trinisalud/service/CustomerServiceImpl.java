@@ -32,6 +32,7 @@ public class CustomerServiceImpl implements CustomerService {
 	public void create(CreateCustomerRequest request) throws ServiceException {
 		User user = mapToUser(request);
 		Customer customer = mapToCustomer(request, user);
+		verifyCustomerDoNotExist(customer.getId());
 		try {
 			userRepository.save(user);
 			customerRepository.save(customer);
@@ -60,5 +61,16 @@ public class CustomerServiceImpl implements CustomerService {
 	private Customer mapToCustomer(CreateCustomerRequest request, User user) {
 		return new Customer(request.getIdentification(), request.getName(), request.getEmail(), request.getPhone(),
 				user);
+	}
+
+	private void verifyCustomerDoNotExist(String id) {
+		try {
+			Customer customer = customerRepository.findOne(id);
+			if (customer != null) {
+				throw new ServiceException("El cliente ya fue registrado anteriormente");
+			}
+		} catch (PersistenceException e) {
+			LOGGER.severe("Error finding customer with id " + id + " - " + e);
+		}
 	}
 }

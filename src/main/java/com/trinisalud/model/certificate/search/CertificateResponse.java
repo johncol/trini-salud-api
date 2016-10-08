@@ -2,23 +2,23 @@ package com.trinisalud.model.certificate.search;
 
 public class CertificateResponse {
 
-	private String certificateId;
+	private long certificateId;
 	private String name;
 
 	public CertificateResponse() {
 	}
 
-	public CertificateResponse(String certificateId, String name) {
+	public CertificateResponse(long certificateId, String name) {
 		super();
 		this.certificateId = certificateId;
 		this.name = name;
 	}
 
-	public String getCertificateId() {
+	public long getCertificateId() {
 		return certificateId;
 	}
 
-	public void setCertificateId(String certificateId) {
+	public void setCertificateId(long certificateId) {
 		this.certificateId = certificateId;
 	}
 

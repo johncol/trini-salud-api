@@ -5,6 +5,6 @@ import com.trinisalud.model.authentication.AuthenticationResponse;
 
 public interface AuthenticationService {
 	
-	AuthenticationResponse authenticate(AuthenticationRequest request);
+	AuthenticationResponse authenticate(AuthenticationRequest request) throws ServiceException;
 
 }

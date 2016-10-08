@@ -8,6 +8,6 @@ import com.trinisalud.domain.Certificate;
 
 public interface CertificateRepository extends CrudRepository<Certificate, Integer> {
 
-	List<Certificate> findAllByPatient(String patient);
+	List<Certificate> findAllByPatientId(String patientId);
 
 }
