@@ -2,10 +2,10 @@ package com.trinisalud.service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Logger;
 
 import javax.persistence.PersistenceException;
 
-import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -36,7 +36,7 @@ public class CustomerServiceImpl implements CustomerService {
 			userRepository.save(user);
 			customerRepository.save(customer);
 		} catch (PersistenceException e) {
-			LOGGER.error("Error saving customer " + customer, e);
+			LOGGER.severe("Error saving customer " + customer + " - " + e);
 			throw new ServiceException("Ocurrio un error al guardar el cliente");
 		}
 	}
@@ -48,7 +48,7 @@ public class CustomerServiceImpl implements CustomerService {
 			customerRepository.findAll().forEach(c -> customers.add(new CustomerData(c.getId(), c.getName())));
 			return customers;
 		} catch (PersistenceException e) {
-			LOGGER.error("Error listing customers", e);
+			LOGGER.severe("Error listing customers - " + e);
 			throw new ServiceException("Ocurrio un error al cosultar los clientes");
 		}
 	}

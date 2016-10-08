@@ -1,6 +1,6 @@
 package com.trinisalud.model.certificate.search;
 
-public class Patient {
+public class PatientResponse {
 
 	private String identification;
 	private String name;
@@ -13,10 +13,10 @@ public class Patient {
 	private String eps;
 	private String customerId;
 
-	public Patient() {
+	public PatientResponse() {
 	}
 
-	public Patient(String identification, String name, String gender, int age, long birthdate, String address,
+	public PatientResponse(String identification, String name, String gender, int age, long birthdate, String address,
 			String phone, String email, String eps, String customerId) {
 		super();
 		this.identification = identification;

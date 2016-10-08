@@ -21,7 +21,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import com.trinisalud.model.certificate.search.SearchCertificateResponse;
 import com.trinisalud.model.certificate.upload.UploadCertificateRequest;
 import com.trinisalud.model.certificate.upload.UploadCertificateResponse;
-import com.trinisalud.service.CertificateService;;
+import com.trinisalud.service.CertificateService;
+import com.trinisalud.service.ServiceException;
+import com.trinisalud.service.UploadCertificateService;;
 
 @RestController
 @RequestMapping("/certificate")
@@ -30,18 +32,31 @@ public class CertificateController {
 	private static final Logger LOGGER = Logger.getLogger(CertificateController.class.getName());
 
 	@Autowired
+	private UploadCertificateService uploadCertificateService;
+
+	@Autowired
 	private CertificateService certificateService;
 
 	@PostMapping("")
 	public ApiResponse<UploadCertificateResponse> save(@RequestBody UploadCertificateRequest request) {
 		LOGGER.info("save request: " + request);
-		return new ApiResponse<UploadCertificateResponse>(true, "Ok", certificateService.uploadCertificate(request));
+		try {
+			UploadCertificateResponse response = uploadCertificateService.upload(request);
+			return new ApiResponse<UploadCertificateResponse>(true, "Ok", response);
+		} catch (ServiceException e) {
+			return new ApiResponse<UploadCertificateResponse>(false, e.getMessage());
+		}
 	}
 
 	@GetMapping("")
 	public ApiResponse<SearchCertificateResponse> get(@RequestParam(name = "patient") String patientId) {
 		LOGGER.info("get request patientId: " + patientId);
-		return new ApiResponse<SearchCertificateResponse>(true, "ok", certificateService.search(patientId));
+		try {
+			SearchCertificateResponse response = certificateService.search(patientId);
+			return new ApiResponse<SearchCertificateResponse>(true, "ok", response);
+		} catch (ServiceException e) {
+			return new ApiResponse<SearchCertificateResponse>(false, e.getMessage());
+		}
 	}
 
 	@GetMapping("/{certificateId}")

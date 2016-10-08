@@ -4,6 +4,4 @@ import org.springframework.data.repository.CrudRepository;
 
 import com.trinisalud.domain.Customer;
 
-public interface CustomerRepository extends CrudRepository<Customer, String> {
-	
-}
+public interface CustomerRepository extends CrudRepository<Customer, String> { }

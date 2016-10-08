@@ -1,14 +1,14 @@
 package com.trinisalud.model.certificate.search;
 
-public class Certificate {
+public class CertificateResponse {
 
 	private String certificateId;
 	private String name;
 
-	public Certificate() {
+	public CertificateResponse() {
 	}
 
-	public Certificate(String certificateId, String name) {
+	public CertificateResponse(String certificateId, String name) {
 		super();
 		this.certificateId = certificateId;
 		this.name = name;

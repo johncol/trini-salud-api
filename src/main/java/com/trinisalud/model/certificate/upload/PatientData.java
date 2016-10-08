@@ -5,7 +5,7 @@ public class PatientData {
 	private String identification;
 	private String name;
 	private String birthdate;
-	private String gender;
+	private char gender;
 	private String eps;
 	private String address;
 	private String email;
@@ -13,7 +13,7 @@ public class PatientData {
 	
 	public PatientData() {}
 
-	public PatientData(String identification, String name, String birthdate, String gender, String eps, String address,
+	public PatientData(String identification, String name, String birthdate, char gender, String eps, String address,
 			String email, String phone) {
 		super();
 		this.identification = identification;
@@ -50,11 +50,11 @@ public class PatientData {
 		this.birthdate = birthdate;
 	}
 
-	public String getGender() {
+	public char getGender() {
 		return gender;
 	}
 
-	public void setGender(String gender) {
+	public void setGender(char gender) {
 		this.gender = gender;
 	}
 

@@ -2,25 +2,22 @@ package com.trinisalud.model.certificate.upload;
 
 public class UploadCertificateResponse {
 	
-	private String certificateId;
+	private long certificateId;
 	private String certificateName;
-	private String customerId;
 	
 	public UploadCertificateResponse() {}
 
-	public UploadCertificateResponse(boolean success, String message, String certificateId, String certificateName,
-			String customerId) {
+	public UploadCertificateResponse(long certificateId, String certificateName) {
 		super();
 		this.certificateId = certificateId;
 		this.certificateName = certificateName;
-		this.customerId = customerId;
 	}
 
-	public String getCertificateId() {
+	public long getCertificateId() {
 		return certificateId;
 	}
 
-	public void setCertificateId(String certificateId) {
+	public void setCertificateId(long certificateId) {
 		this.certificateId = certificateId;
 	}
 
@@ -32,18 +29,10 @@ public class UploadCertificateResponse {
 		this.certificateName = certificateName;
 	}
 
-	public String getCustomerId() {
-		return customerId;
-	}
-
-	public void setCustomerId(String customerId) {
-		this.customerId = customerId;
-	}
-
 	@Override
 	public String toString() {
 		return "UploadCertificateResponse [certificateId=" + certificateId + ", certificateName=" + certificateName
-				+ ", customerId=" + customerId + "]";
+				+ "]";
 	}
 
 }

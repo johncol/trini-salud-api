@@ -4,31 +4,31 @@ import java.util.List;
 
 public class SearchCertificateResponse {
 
-	private Patient patient;
-	private List<Certificate> certificates;
+	private PatientResponse patient;
+	private List<CertificateResponse> certificates;
 
 	public SearchCertificateResponse() {
 	}
 
-	public SearchCertificateResponse(Patient patient, List<Certificate> certificates) {
+	public SearchCertificateResponse(PatientResponse patient, List<CertificateResponse> certificates) {
 		super();
 		this.patient = patient;
 		this.certificates = certificates;
 	}
 
-	public Patient getPatient() {
+	public PatientResponse getPatient() {
 		return patient;
 	}
 
-	public void setPatient(Patient patient) {
+	public void setPatient(PatientResponse patient) {
 		this.patient = patient;
 	}
 
-	public List<Certificate> getCertificates() {
+	public List<CertificateResponse> getCertificates() {
 		return certificates;
 	}
 
-	public void setCertificates(List<Certificate> certificates) {
+	public void setCertificates(List<CertificateResponse> certificates) {
 		this.certificates = certificates;
 	}
 
