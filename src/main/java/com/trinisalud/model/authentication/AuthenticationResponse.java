@@ -2,23 +2,23 @@ package com.trinisalud.model.authentication;
 
 public class AuthenticationResponse {
 
-	private final boolean success;
+	private final boolean authenticated;
 	private final String role;
 	private final String token;
 
-	public AuthenticationResponse(boolean success, String role, String token) {
+	public AuthenticationResponse(boolean authenticated, String role, String token) {
 		super();
-		this.success = success;
+		this.authenticated = authenticated;
 		this.role = role;
 		this.token = token;
 	}
 
-	public AuthenticationResponse(boolean success) {
-		this(success, null, null);
+	public AuthenticationResponse(boolean authenticated) {
+		this(authenticated, null, null);
 	}
 
-	public boolean isSuccess() {
-		return success;
+	public boolean isAuthenticated() {
+		return authenticated;
 	}
 
 	public String getRole() {

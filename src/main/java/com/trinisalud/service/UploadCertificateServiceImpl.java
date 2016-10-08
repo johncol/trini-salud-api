@@ -38,7 +38,7 @@ public class UploadCertificateServiceImpl implements UploadCertificateService {
 		try {
 			Patient patient = managePatient(request);
 			Certificate certificate = createAndGetCertificate(request, patient);
-			return new UploadCertificateResponse(certificate.getId(), certificate.getName());
+			return new UploadCertificateResponse(String.valueOf(certificate.getId()), certificate.getName());
 		} catch (PersistenceException e) {
 			LOGGER.severe("Error uploading certificate " + request + " - " + e);
 			throw new ServiceException("No fue posible guardar los datos del paciente y su certificado");

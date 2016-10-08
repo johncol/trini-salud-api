@@ -28,7 +28,7 @@ public class AuthenticationController {
 		LOGGER.info("request: " + request);
 		try {
 			AuthenticationResponse response = authService.authenticate(request);
-			return new ApiResponse<AuthenticationResponse>(response.isSuccess(), response.isSuccess() ? "ok" : "Credenciales inorrectas", response);
+			return new ApiResponse<AuthenticationResponse>(response.isAuthenticated(), response.isAuthenticated() ? "ok" : "Credenciales inorrectas", response);
 		} catch (ServiceException e) {
 			return new ApiResponse<AuthenticationResponse>(false, e.getMessage());
 		}

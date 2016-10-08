@@ -15,6 +15,8 @@ public class WebConfiguration {
 			@Override
 			public void addCorsMappings(CorsRegistry registry) {
 				String webOrigin = System.getProperty("WEB_ORIGIN", "http://trini-salud-web.herokuapp.com/");
+				String webOriginDev = "http://localhost:5000/";
+				registry.addMapping(webOriginDev);
 				registry.addMapping(webOrigin);
 			}
 		};

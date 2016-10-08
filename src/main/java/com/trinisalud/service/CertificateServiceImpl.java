@@ -64,7 +64,7 @@ public class CertificateServiceImpl implements CertificateService {
 	
 	private List<CertificateResponse> mapToCertificatesResponse(List<Certificate> certificates) {
 		return certificates.stream()
-				.map(certificate -> new CertificateResponse(certificate.getId(), certificate.getName()))
+				.map(certificate -> new CertificateResponse(String.valueOf(certificate.getId()), certificate.getName()))
 				.collect(Collectors.toList());
 	}
 	

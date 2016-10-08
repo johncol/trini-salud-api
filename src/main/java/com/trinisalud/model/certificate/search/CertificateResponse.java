@@ -2,24 +2,24 @@ package com.trinisalud.model.certificate.search;
 
 public class CertificateResponse {
 
-	private long certificateId;
+	private String id;
 	private String name;
 
 	public CertificateResponse() {
 	}
 
-	public CertificateResponse(long certificateId, String name) {
+	public CertificateResponse(String id, String name) {
 		super();
-		this.certificateId = certificateId;
+		this.id = id;
 		this.name = name;
 	}
 
-	public long getCertificateId() {
-		return certificateId;
+	public String getId() {
+		return id;
 	}
 
-	public void setCertificateId(long certificateId) {
-		this.certificateId = certificateId;
+	public void setId(String id) {
+		this.id = id;
 	}
 
 	public String getName() {
@@ -32,7 +32,7 @@ public class CertificateResponse {
 
 	@Override
 	public String toString() {
-		return "Certificate [certificateId=" + certificateId + ", name=" + name + "]";
+		return "Certificate [id=" + id + ", name=" + name + "]";
 	}
 
 }

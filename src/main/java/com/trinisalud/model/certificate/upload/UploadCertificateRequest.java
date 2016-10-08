@@ -44,7 +44,5 @@ public class UploadCertificateRequest {
 		return "UploadCertificateRequest [patient=" + patient + ", certificate=" + certificate + ", customer="
 				+ customer + "]";
 	}
-	
-	
 
 }
