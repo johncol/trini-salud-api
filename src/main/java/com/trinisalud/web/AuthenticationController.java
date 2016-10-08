@@ -7,8 +7,10 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.logging.Logger;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import com.trinisalud.configuration.Configuration;
 import com.trinisalud.model.authentication.AuthenticationRequest;
 import com.trinisalud.model.authentication.AuthenticationResponse;
 import com.trinisalud.service.AuthenticationService;
@@ -16,6 +18,7 @@ import com.trinisalud.service.ServiceException;;
 
 @RestController
 @RequestMapping("/authentication")
+@CrossOrigin(origins = Configuration.ORIGIN)
 public class AuthenticationController {
 	
 	private static final Logger LOGGER = Logger.getLogger(AuthenticationController.class.getName());
@@ -28,7 +31,7 @@ public class AuthenticationController {
 		LOGGER.info("request: " + request);
 		try {
 			AuthenticationResponse response = authService.authenticate(request);
-			return new ApiResponse<AuthenticationResponse>(response.isAuthenticated(), response.isAuthenticated() ? "ok" : "Credenciales inorrectas", response);
+			return new ApiResponse<AuthenticationResponse>(response.isAuthenticated(), response.isAuthenticated() ? "ok" : "Usuario o contraseña incorrecta", response);
 		} catch (ServiceException e) {
 			return new ApiResponse<AuthenticationResponse>(false, e.getMessage());
 		}

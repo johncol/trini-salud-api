@@ -14,10 +14,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import com.trinisalud.configuration.Configuration;
 import com.trinisalud.model.certificate.search.SearchCertificateResponse;
 import com.trinisalud.model.certificate.upload.UploadCertificateRequest;
 import com.trinisalud.model.certificate.upload.UploadCertificateResponse;
@@ -27,6 +29,7 @@ import com.trinisalud.service.UploadCertificateService;;
 
 @RestController
 @RequestMapping("/certificate")
+@CrossOrigin(origins = Configuration.ORIGIN)
 public class CertificateController {
 
 	private static final Logger LOGGER = Logger.getLogger(CertificateController.class.getName());
@@ -38,8 +41,8 @@ public class CertificateController {
 	private CertificateService certificateService;
 
 	@PostMapping("")
-	public ApiResponse<UploadCertificateResponse> save(@RequestBody UploadCertificateRequest request) {
-		LOGGER.info("save request: " + request);
+	public ApiResponse<UploadCertificateResponse> upload(@RequestBody UploadCertificateRequest request) {
+		LOGGER.info("upload request: " + request);
 		try {
 			UploadCertificateResponse response = uploadCertificateService.upload(request);
 			return new ApiResponse<UploadCertificateResponse>(true, "ok", response);

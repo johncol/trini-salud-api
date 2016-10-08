@@ -46,9 +46,12 @@ public class UploadCertificateServiceImpl implements UploadCertificateService {
 	}
 	
 	private Patient managePatient(UploadCertificateRequest request) throws PersistenceException, ServiceException {
-		Patient patient = patientRepository.findOne(request.getPatient().getIdentification());
+		String identification = request.getPatient().getIdentification();
+		Patient patient = patientRepository.findOne(identification);
 		if (patient != null) {
 			return patient;
+		} else if (request.getPatient().getName() == null) {
+			throw new ServiceException("No existen datos del paciente '" + identification + "'");
 		}
 		return createAndGetPatient(request);
 	}
