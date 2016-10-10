@@ -6,7 +6,7 @@ import org.springframework.data.repository.CrudRepository;
 
 import com.trinisalud.domain.Certificate;
 
-public interface CertificateRepository extends CrudRepository<Certificate, Integer> {
+public interface CertificateRepository extends CrudRepository<Certificate, Long> {
 
 	List<Certificate> findAllByPatientId(String patientId);
 

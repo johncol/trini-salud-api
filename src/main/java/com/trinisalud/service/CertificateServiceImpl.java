@@ -34,7 +34,10 @@ public class CertificateServiceImpl implements CertificateService {
 
 	@Override
 	public byte[] getCertificateBytes(String certificateId) throws ServiceException {
-		return new byte[1];
+		Certificate certificate = certificateRepository.findOne(Long.parseLong(certificateId));
+		LOGGER.info("Certificate found!");
+		LOGGER.info(certificate.toString());
+		return certificate.getFile();
 	}
 
 	@Override

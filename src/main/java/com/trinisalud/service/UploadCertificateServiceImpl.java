@@ -6,6 +6,7 @@ import java.util.logging.Logger;
 
 import javax.persistence.PersistenceException;
 
+import org.apache.commons.codec.binary.Base64;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -73,8 +74,9 @@ public class UploadCertificateServiceImpl implements UploadCertificateService {
 
 	private Certificate createAndGetCertificate(UploadCertificateRequest request, Patient patient) throws PersistenceException {
 		String name = request.getCertificate().getName();
+		String file = request.getCertificate().getFile();
 		Date date = Date.valueOf(LocalDate.now());
-		Certificate certificate = new Certificate(name, date, null, patient);
+		Certificate certificate = new Certificate(name, date, Base64.decodeBase64(file), patient);
 		return certificateRepository.save(certificate);
 	}
 

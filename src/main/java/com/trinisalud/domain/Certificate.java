@@ -27,9 +27,10 @@ public class Certificate {
 	@Column(nullable = false)
 	private Date date;
 
-	@Column(nullable = true)
-	private String file;
-	// private Blob file;
+	@Column(nullable = false)
+//	private String file;
+//	private Blob file;
+	private byte[] file;
 
 	@ManyToOne(optional = false)
 	@JoinColumn(name = "patient")
@@ -39,7 +40,7 @@ public class Certificate {
 	protected Certificate() {
 	}
 
-	public Certificate(String name, Date date, String file, Patient patient) {
+	public Certificate(String name, Date date, byte[] file, Patient patient) {
 		super();
 		this.name = name;
 		this.date = date;
@@ -71,11 +72,11 @@ public class Certificate {
 		this.date = date;
 	}
 
-	public String getFile() {
+	public byte[] getFile() {
 		return file;
 	}
 
-	public void setFile(String file) {
+	public void setFile(byte[] file) {
 		this.file = file;
 	}
 

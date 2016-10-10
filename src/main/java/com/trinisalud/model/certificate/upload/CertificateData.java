@@ -1,13 +1,15 @@
 package com.trinisalud.model.certificate.upload;
 
+import java.util.Arrays;
+
 public class CertificateData {
 	
 	private String name;
-	private byte[] file;
+	private String file;
 	
 	public CertificateData() {}
 
-	public CertificateData(String name, byte[] file) {
+	public CertificateData(String name, String file) {
 		super();
 		this.name = name;
 		this.file = file;
@@ -17,13 +19,13 @@ public class CertificateData {
 		return name;
 	}
 	
-	public byte[] getFile() {
+	public String getFile() {
 		return file;
 	}
-	
+
 	@Override
 	public String toString() {
-		return "CertificateData [name=" + name + "]";
+		return "CertificateData [name=" + name + ", file=" + file + "]";
 	}
 
 }
