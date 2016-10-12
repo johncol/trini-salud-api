@@ -14,12 +14,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
-import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
-import com.trinisalud.configuration.Configuration;
 import com.trinisalud.model.certificate.search.SearchCertificateResponse;
 import com.trinisalud.model.certificate.upload.UploadCertificateRequest;
 import com.trinisalud.model.certificate.upload.UploadCertificateResponse;
@@ -29,7 +27,6 @@ import com.trinisalud.service.UploadCertificateService;;
 
 @RestController
 @RequestMapping("/certificate")
-@CrossOrigin(origins = Configuration.ORIGIN)
 public class CertificateController {
 
 	private static final Logger LOGGER = Logger.getLogger(CertificateController.class.getName());
@@ -62,6 +59,17 @@ public class CertificateController {
 		}
 	}
 
+	@GetMapping("/customer")
+	public ApiResponse<SearchCertificateResponse> getForCustomer(@RequestParam(name = "patient") String patientId, @RequestParam(name = "id") String customerId) {
+		LOGGER.info("get for customer request patientId: " + patientId + " customerId: " + customerId);
+		try {
+			SearchCertificateResponse response = certificateService.searchForCustomer(patientId, customerId);
+			return new ApiResponse<SearchCertificateResponse>(true, "ok", response);
+		} catch (ServiceException e) {
+			return new ApiResponse<SearchCertificateResponse>(false, e.getMessage());
+		}
+	}
+
 	@GetMapping("/{certificateId}")
 	public HttpEntity<byte[]> download(HttpServletResponse response, @PathVariable String certificateId)
 			throws IOException {
@@ -77,6 +85,12 @@ public class CertificateController {
 		headers.setContentLength(bytes.length);
 		headers.set("Content-Disposition", "attachment; filename=certificado.pdf");
 		return headers;
+	}
+
+	@GetMapping("/sample")
+	public ApiResponse<String> sample() {
+		LOGGER.info("sample request");
+		return new ApiResponse<String>(true, "ok", "cool");
 	}
 
 }

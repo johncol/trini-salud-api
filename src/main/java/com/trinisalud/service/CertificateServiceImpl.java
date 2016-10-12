@@ -34,10 +34,13 @@ public class CertificateServiceImpl implements CertificateService {
 
 	@Override
 	public byte[] getCertificateBytes(String certificateId) throws ServiceException {
-		Certificate certificate = certificateRepository.findOne(Long.parseLong(certificateId));
-		LOGGER.info("Certificate found!");
-		LOGGER.info(certificate.toString());
-		return certificate.getFile();
+		try {
+			Certificate certificate = certificateRepository.findOne(Long.parseLong(certificateId));
+			return certificate.getFile();
+		} catch (PersistenceException e) {
+			LOGGER.severe("Error gettring certificate " + certificateId + " - " + e);
+			throw new ServiceException("Ocurrio un error");
+		}
 	}
 
 	@Override
@@ -52,8 +55,28 @@ public class CertificateServiceImpl implements CertificateService {
 		}
 	}
 
+	@Override
+	public SearchCertificateResponse searchForCustomer(String patientId, String customerId) throws ServiceException {
+		try {
+			PatientResponse patient = findAndMapPatientForCustomer(patientId, customerId);
+			List<CertificateResponse> certificates = findAndMapCertificates(patientId);
+			return new SearchCertificateResponse(patient, certificates);
+		} catch (PersistenceException e) {
+			LOGGER.severe("Error searching certificates for patient with id " + patientId + " - " + e);
+			throw new ServiceException("Ocurrio un error en la búsqueda");
+		}
+	}
+
 	private PatientResponse findAndMapPatient(String patientId) throws ServiceException, PersistenceException {
 		Patient patient = patientRepository.findOne(patientId);
+		if (patient == null) {
+			throw new ServiceException("El paciente con identificacion '" + patientId + "' no fue encontrado");
+		}
+		return mapToPatientResponse(patient);
+	}
+
+	private PatientResponse findAndMapPatientForCustomer(String patientId, String customerId) throws ServiceException, PersistenceException {
+		Patient patient = patientRepository.findByIdAndCustomerId(patientId, customerId);
 		if (patient == null) {
 			throw new ServiceException("El paciente con identificacion '" + patientId + "' no fue encontrado");
 		}

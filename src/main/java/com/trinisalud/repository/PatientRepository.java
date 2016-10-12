@@ -4,4 +4,8 @@ import org.springframework.data.repository.CrudRepository;
 
 import com.trinisalud.domain.Patient;
 
-public interface PatientRepository extends CrudRepository<Patient, String> { }
+public interface PatientRepository extends CrudRepository<Patient, String> {
+	
+	Patient findByIdAndCustomerId(String id, String customerId);
+	
+}

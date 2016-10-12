@@ -4,14 +4,12 @@ import java.util.List;
 import java.util.logging.Logger;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.trinisalud.configuration.Configuration;
 import com.trinisalud.model.customer.CreateCustomerRequest;
 import com.trinisalud.model.customer.CustomerData;
 import com.trinisalud.service.CustomerService;
@@ -19,7 +17,6 @@ import com.trinisalud.service.ServiceException;
 
 @RestController
 @RequestMapping("/customer")
-@CrossOrigin(origins = Configuration.ORIGIN)
 public class CustomerController {
 
 	private static final Logger LOGGER = Logger.getLogger(CustomerService.class.getName());

@@ -1,7 +1,5 @@
 package com.trinisalud.model.certificate.upload;
 
-import java.util.Arrays;
-
 public class CertificateData {
 	
 	private String name;
