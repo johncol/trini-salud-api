@@ -1,8 +1,5 @@
 package com.trinisalud.service;
 
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-import java.time.temporal.ChronoUnit;
 import java.util.List;
 import java.util.logging.Logger;
 import java.util.stream.Collectors;
@@ -95,17 +92,10 @@ public class CertificateServiceImpl implements CertificateService {
 	}
 	
 	private PatientResponse mapToPatientResponse(Patient patient) {
-		LocalDate birthdate = patient.getBirthdate().toLocalDate();
 		return new PatientResponseBuilder()
 				.setIdentification(patient.getId())
 				.setName(patient.getName())
-				.setBirthdate(DateTimeFormatter.ofPattern("d 'de' MMMM 'de' YYYY").format(birthdate))
-				.setAge((int) ChronoUnit.YEARS.between(birthdate, LocalDate.now()))
 				.setGender(patient.getGender())
-				.setEmail(patient.getEmail())
-				.setPhone(patient.getPhone())
-				.setAddress(patient.getAddress())
-				.setEps(patient.getEps())
 				.setCustomerId(patient.getCustomer().getId())
 				.build();
 	}

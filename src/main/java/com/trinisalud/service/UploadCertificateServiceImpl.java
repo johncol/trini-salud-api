@@ -81,9 +81,7 @@ public class UploadCertificateServiceImpl implements UploadCertificateService {
 	}
 
 	private Patient mapToPatient(PatientData patient, Customer customer) {
-		Date birthdate = Date.valueOf(patient.getBirthdate());
-		return new Patient(patient.getIdentification(), patient.getName(), patient.getEmail(), patient.getGender(),
-				patient.getEps(), birthdate, patient.getAddress(), patient.getPhone(), customer);
+		return new Patient(patient.getIdentification(), patient.getName(),patient.getGender(), customer);
 	}
 
 }
