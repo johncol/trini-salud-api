@@ -10,6 +10,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
+import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.hibernate.annotations.LazyToOne;
 import org.hibernate.annotations.LazyToOneOption;
 
@@ -28,24 +29,28 @@ public class Certificate {
 	private Date date;
 
 	@Column(nullable = false)
-//	private String file;
-//	private Blob file;
 	private byte[] file;
 
-	@ManyToOne(optional = false)
+	@ManyToOne(optional = true)
 	@JoinColumn(name = "patient")
 	@LazyToOne(value = LazyToOneOption.PROXY)
 	private Patient patient;
 
+	@ManyToOne(optional = false)
+	@JoinColumn(name = "customer")
+	@LazyToOne(value = LazyToOneOption.PROXY)
+	private Customer customer;
+
 	protected Certificate() {
 	}
 
-	public Certificate(String name, Date date, byte[] file, Patient patient) {
+	public Certificate(String name, Date date, byte[] file, Patient patient, Customer customer) {
 		super();
 		this.name = name;
 		this.date = date;
 		this.file = file;
 		this.patient = patient;
+		this.customer = customer;
 	}
 
 	public long getId() {
@@ -87,11 +92,18 @@ public class Certificate {
 	public void setPatient(Patient patient) {
 		this.patient = patient;
 	}
+	
+	public Customer getCustomer() {
+		return customer;
+	}
+	
+	public void setCustomer(Customer customer) {
+		this.customer = customer;
+	}
 
 	@Override
 	public String toString() {
-		return "Certificate [id=" + id + ", name=" + name + ", date=" + date + ", file=" + file + ", patient=" + patient
-				+ "]";
+		return ToStringBuilder.reflectionToString(this);
 	}
 
 }

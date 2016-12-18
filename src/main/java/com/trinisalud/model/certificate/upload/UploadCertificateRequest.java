@@ -1,5 +1,7 @@
 package com.trinisalud.model.certificate.upload;
 
+import org.apache.commons.lang3.builder.ToStringBuilder;
+
 public class UploadCertificateRequest {
 	
 	private PatientData patient;
@@ -41,8 +43,7 @@ public class UploadCertificateRequest {
 
 	@Override
 	public String toString() {
-		return "UploadCertificateRequest [patient=" + patient + ", certificate=" + certificate + ", customer="
-				+ customer + "]";
+		return ToStringBuilder.reflectionToString(this);
 	}
 
 }
