@@ -1,21 +1,19 @@
 package com.trinisalud.model.certificate.search;
 
+import org.apache.commons.lang3.builder.ToStringBuilder;
+
 public class PatientResponse {
 
 	private String identification;
 	private String name;
-	private char gender;
-	private String customerId;
 
 	public PatientResponse() {
 	}
 
-	public PatientResponse(String identification, String name, char gender, String customerId) {
+	public PatientResponse(String identification, String name) {
 		super();
 		this.identification = identification;
 		this.name = name;
-		this.gender = gender;
-		this.customerId = customerId;
 	}
 
 	public String getIdentification() {
@@ -34,34 +32,15 @@ public class PatientResponse {
 		this.name = name;
 	}
 
-	public char getGender() {
-		return gender;
-	}
-
-	public void setGender(char gender) {
-		this.gender = gender;
-	}
-
-	public String getCustomerId() {
-		return customerId;
-	}
-
-	public void setCustomerId(String customerId) {
-		this.customerId = customerId;
-	}
-
 	@Override
 	public String toString() {
-		return "PatientResponse [identification=" + identification + ", name=" + name + ", gender=" + gender
-				+ ", customerId=" + customerId + "]";
+		return ToStringBuilder.reflectionToString(this);
 	}
 
 	public static class PatientResponseBuilder {
 
 		private String identification;
 		private String name;
-		private char gender;
-		private String customerId;
 
 		public PatientResponseBuilder() {
 		}
@@ -76,18 +55,8 @@ public class PatientResponse {
 			return this;
 		}
 
-		public PatientResponseBuilder setGender(char gender) {
-			this.gender = gender;
-			return this;
-		}
-
-		public PatientResponseBuilder setCustomerId(String customerId) {
-			this.customerId = customerId;
-			return this;
-		}
-
 		public PatientResponse build() {
-			return new PatientResponse(identification, name, gender, customerId);
+			return new PatientResponse(identification, name);
 		}
 
 	}

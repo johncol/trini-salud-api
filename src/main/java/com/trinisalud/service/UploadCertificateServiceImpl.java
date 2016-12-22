@@ -13,7 +13,6 @@ import org.springframework.stereotype.Component;
 import com.trinisalud.domain.Certificate;
 import com.trinisalud.domain.Customer;
 import com.trinisalud.domain.Patient;
-import com.trinisalud.model.certificate.upload.PatientData;
 import com.trinisalud.model.certificate.upload.UploadCertificateRequest;
 import com.trinisalud.model.certificate.upload.UploadCertificateResponse;
 import com.trinisalud.repository.CertificateRepository;
@@ -38,7 +37,8 @@ public class UploadCertificateServiceImpl implements UploadCertificateService {
 	public UploadCertificateResponse upload(UploadCertificateRequest request) throws ServiceException {
 		try {
 			Patient patient = managePatient(request);
-			Certificate certificate = createAndGetCertificate(request, patient);
+			Customer customer = loadCustomer(request);
+			Certificate certificate = createCertificate(request, patient, customer);
 			return new UploadCertificateResponse(String.valueOf(certificate.getId()), certificate.getName());
 		} catch (PersistenceException e) {
 			LOGGER.severe("Error uploading certificate " + request + " - " + e);
@@ -49,18 +49,10 @@ public class UploadCertificateServiceImpl implements UploadCertificateService {
 	private Patient managePatient(UploadCertificateRequest request) throws PersistenceException, ServiceException {
 		String identification = request.getPatient().getIdentification();
 		Patient patient = patientRepository.findOne(identification);
-		if (patient != null) {
-			return patient;
-		} else if (request.getPatient().getName() == null) {
-			throw new ServiceException("No existen datos del paciente '" + identification + "'");
+		if (patient == null) {
+			patient = new Patient(request.getPatient().getIdentification(), request.getPatient().getName());
+			patientRepository.save(patient);
 		}
-		return createAndGetPatient(request);
-	}
-
-	private Patient createAndGetPatient(UploadCertificateRequest request) throws PersistenceException, ServiceException {
-		Customer customer = loadCustomer(request);
-		Patient patient = mapToPatient(request.getPatient(), customer);
-		patientRepository.save(patient);
 		return patient;
 	}
 
@@ -72,16 +64,12 @@ public class UploadCertificateServiceImpl implements UploadCertificateService {
 		return customer;
 	}
 
-	private Certificate createAndGetCertificate(UploadCertificateRequest request, Patient patient) throws PersistenceException {
+	private Certificate createCertificate(UploadCertificateRequest request, Patient patient, Customer customer) throws PersistenceException {
 		String name = request.getCertificate().getName();
 		String file = request.getCertificate().getFile();
 		Date date = Date.valueOf(LocalDate.now());
-		Certificate certificate = new Certificate(name, date, Base64.decodeBase64(file), patient);
+		Certificate certificate = new Certificate(name, date, Base64.decodeBase64(file), patient, customer);
 		return certificateRepository.save(certificate);
-	}
-
-	private Patient mapToPatient(PatientData patient, Customer customer) {
-		return new Patient(patient.getIdentification(), patient.getName(),patient.getGender(), customer);
 	}
 
 }

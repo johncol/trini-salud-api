@@ -1,10 +1,11 @@
 package com.trinisalud.model.certificate.upload;
 
+import org.apache.commons.lang3.builder.ToStringBuilder;
+
 public class PatientData {
 
 	private String identification;
 	private String name;
-	private char gender;
 
 	public PatientData() {
 	}
@@ -13,7 +14,6 @@ public class PatientData {
 		super();
 		this.identification = identification;
 		this.name = name;
-		this.gender = gender;
 	}
 
 	public String getIdentification() {
@@ -32,17 +32,9 @@ public class PatientData {
 		this.name = name;
 	}
 
-	public char getGender() {
-		return gender;
-	}
-
-	public void setGender(char gender) {
-		this.gender = gender;
-	}
-
 	@Override
 	public String toString() {
-		return "PatientData [identification=" + identification + ", name=" + name + ", gender=" + gender + "]";
+		return ToStringBuilder.reflectionToString(this);
 	}
 
 }

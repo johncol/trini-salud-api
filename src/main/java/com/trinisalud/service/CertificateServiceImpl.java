@@ -44,7 +44,7 @@ public class CertificateServiceImpl implements CertificateService {
 	public SearchCertificateResponse search(String patientId) throws ServiceException {
 		try {
 			PatientResponse patient = findAndMapPatient(patientId);
-			List<CertificateResponse> certificates = findAndMapCertificates(patientId);
+			List<CertificateResponse> certificates = findAllPatientCertificates(patientId);
 			return new SearchCertificateResponse(patient, certificates);
 		} catch (PersistenceException e) {
 			LOGGER.severe("Error searching certificates for patient with id " + patientId + " - " + e);
@@ -55,8 +55,8 @@ public class CertificateServiceImpl implements CertificateService {
 	@Override
 	public SearchCertificateResponse searchForCustomer(String patientId, String customerId) throws ServiceException {
 		try {
-			PatientResponse patient = findAndMapPatientForCustomer(patientId, customerId);
-			List<CertificateResponse> certificates = findAndMapCertificates(patientId);
+			PatientResponse patient = findAndMapPatient(patientId);
+			List<CertificateResponse> certificates = findCustomerPatientCertificates(patientId, customerId);
 			return new SearchCertificateResponse(patient, certificates);
 		} catch (PersistenceException e) {
 			LOGGER.severe("Error searching certificates for patient with id " + patientId + " - " + e);
@@ -67,21 +67,27 @@ public class CertificateServiceImpl implements CertificateService {
 	private PatientResponse findAndMapPatient(String patientId) throws ServiceException, PersistenceException {
 		Patient patient = patientRepository.findOne(patientId);
 		if (patient == null) {
-			throw new ServiceException("El paciente con identificacion '" + patientId + "' no fue encontrado");
+			throw new ServiceException("No hay certificados disponibles para el paciente '" + patientId + "'");
 		}
-		return mapToPatientResponse(patient);
+		return new PatientResponseBuilder()
+				.setIdentification(patient.getId())
+				.setName(patient.getName())
+				.build();
 	}
 
-	private PatientResponse findAndMapPatientForCustomer(String patientId, String customerId) throws ServiceException, PersistenceException {
-		Patient patient = patientRepository.findByIdAndCustomerId(patientId, customerId);
-		if (patient == null) {
-			throw new ServiceException("El paciente con identificacion '" + patientId + "' no fue encontrado");
-		}
-		return mapToPatientResponse(patient);
-	}
-
-	private List<CertificateResponse> findAndMapCertificates(String patientId) throws PersistenceException {
+	private List<CertificateResponse> findAllPatientCertificates(String patientId) throws PersistenceException {
 		List<Certificate> certificates = certificateRepository.findAllByPatientId(patientId);
+		if (certificates.isEmpty()) {
+			throw new ServiceException("No hay certificados disponibles para el paciente '" + patientId + "'");
+		}
+		return mapToCertificatesResponse(certificates);
+	}
+
+	private List<CertificateResponse> findCustomerPatientCertificates(String patientId, String customerId) throws PersistenceException {
+		List<Certificate> certificates = certificateRepository.findAllByPatientIdAndCustomerId(patientId, customerId);
+		if (certificates.isEmpty()) {
+			throw new ServiceException("No hay certificados disponibles para el paciente '" + patientId + "'");
+		}
 		return mapToCertificatesResponse(certificates);
 	}
 	
@@ -89,15 +95,6 @@ public class CertificateServiceImpl implements CertificateService {
 		return certificates.stream()
 				.map(certificate -> new CertificateResponse(String.valueOf(certificate.getId()), certificate.getName()))
 				.collect(Collectors.toList());
-	}
-	
-	private PatientResponse mapToPatientResponse(Patient patient) {
-		return new PatientResponseBuilder()
-				.setIdentification(patient.getId())
-				.setName(patient.getName())
-				.setGender(patient.getGender())
-				.setCustomerId(patient.getCustomer().getId())
-				.build();
 	}
 
 }
