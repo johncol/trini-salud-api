@@ -15,7 +15,7 @@ import org.hibernate.annotations.LazyToOne;
 import org.hibernate.annotations.LazyToOneOption;
 
 @Entity(name = "ts_certificate")
-public class Certificate {
+public class Certificate implements Comparable<Certificate> {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -99,6 +99,11 @@ public class Certificate {
 	
 	public void setCustomer(Customer customer) {
 		this.customer = customer;
+	}
+
+	@Override
+	public int compareTo(Certificate o) {
+		return o.date.compareTo(this.date);
 	}
 
 	@Override

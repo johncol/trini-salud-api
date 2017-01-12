@@ -1,6 +1,9 @@
 package com.trinisalud.service;
 
+import java.time.format.DateTimeFormatter;
+import java.time.format.FormatStyle;
 import java.util.List;
+import java.util.Locale;
 import java.util.logging.Logger;
 import java.util.stream.Collectors;
 
@@ -92,8 +95,15 @@ public class CertificateServiceImpl implements CertificateService {
 	}
 	
 	private List<CertificateResponse> mapToCertificatesResponse(List<Certificate> certificates) {
+		DateTimeFormatter formatter = DateTimeFormatter
+				.ofLocalizedDate(FormatStyle.LONG)
+				.withLocale(new Locale("es"));
 		return certificates.stream()
-				.map(certificate -> new CertificateResponse(String.valueOf(certificate.getId()), certificate.getName()))
+				.sorted()
+				.map(certificate -> new CertificateResponse(
+						String.valueOf(certificate.getId()),
+						certificate.getName(),
+						formatter.format(certificate.getDate().toLocalDate())))
 				.collect(Collectors.toList());
 	}
 

@@ -4,14 +4,16 @@ public class CertificateResponse {
 
 	private String certificateId;
 	private String name;
+	private String date;
 
 	public CertificateResponse() {
 	}
 
-	public CertificateResponse(String certificateId, String name) {
+	public CertificateResponse(String certificateId, String name, String date) {
 		super();
 		this.certificateId = certificateId;
 		this.name = name;
+		this.date = date;
 	}
 
 	public String getCertificateId() {
@@ -30,9 +32,17 @@ public class CertificateResponse {
 		this.name = name;
 	}
 
+	public String getDate() {
+		return date;
+	}
+
+	public void setDate(String date) {
+		this.date = date;
+	}
+
 	@Override
 	public String toString() {
-		return "Certificate [certificateId=" + certificateId + ", name=" + name + "]";
+		return "Certificate [certificateId=" + certificateId + ", name=" + name + ", date=" + date + "]";
 	}
 
 }
